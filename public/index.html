@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EmoLearn — Smart Emotion-Based Learning Platform</title>
+  <meta name="description" content="Learn smarter with EmoLearn — an AI-powered platform that detects your emotion and adapts lessons to match your current mood and energy." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<!-- ═══════════════════════ NAVBAR ═══════════════════════ -->
+<nav class="navbar" id="navbar">
+  <div class="nav-brand">
+    <span class="brand-icon">⚡</span>
+    <span class="brand-name">EmoLearn</span>
+  </div>
+  <div class="nav-links">
+    <a href="#" class="nav-link active" id="navDashboard" onclick="showSection('dashboard')">Dashboard</a>
+    <a href="#" class="nav-link" id="navHistory" onclick="showSection('history')">History</a>
+    <a href="#" class="nav-link" id="navStats" onclick="showSection('stats')">Stats</a>
+  </div>
+  <div class="nav-user">
+    <div class="user-avatar" id="userAvatarNav">?</div>
+    <span class="user-id-label" id="userIdLabel">Guest</span>
+  </div>
+</nav>
+
+<!-- ═══════════════════════ HERO / EMOTION INPUT ═══════════════════════ -->
+<section class="hero-section" id="sectionDashboard">
+
+  <!-- Animated background particles -->
+  <div class="particles" id="particles"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">🧠 Emotion-Adaptive Learning</div>
+    <h1 class="hero-title">How are you feeling<br /><span class="gradient-text" id="heroEmotionWord">today?</span></h1>
+    <p class="hero-subtitle">Tell us your mood. We'll tailor a perfect learning experience just for you.</p>
+
+    <!-- ── Emotion Buttons ── -->
+    <div class="emotion-buttons" id="emotionButtons">
+      <button class="emotion-btn happy-btn" id="btnHappy" onclick="selectEmotion('happy')">
+        <span class="emotion-emoji">😊</span>
+        <span class="emotion-label">Happy</span>
+        <span class="emotion-sublabel">Advanced Content</span>
+      </button>
+      <button class="emotion-btn sad-btn" id="btnSad" onclick="selectEmotion('sad')">
+        <span class="emotion-emoji">😢</span>
+        <span class="emotion-label">Sad</span>
+        <span class="emotion-sublabel">Motivational</span>
+      </button>
+      <button class="emotion-btn neutral-btn" id="btnNeutral" onclick="selectEmotion('neutral')">
+        <span class="emotion-emoji">😐</span>
+        <span class="emotion-label">Neutral</span>
+        <span class="emotion-sublabel">Standard Lessons</span>
+      </button>
+      <button class="emotion-btn angry-btn" id="btnAngry" onclick="selectEmotion('angry')">
+        <span class="emotion-emoji">😠</span>
+        <span class="emotion-label">Angry</span>
+        <span class="emotion-sublabel">Calming Short</span>
+      </button>
+    </div>
+
+    <!-- ── Divider ── -->
+    <div class="or-divider">
+      <span class="or-line"></span>
+      <span class="or-text">or describe how you feel</span>
+      <span class="or-line"></span>
+    </div>
+
+    <!-- ── Text Input ── -->
+    <div class="text-input-wrap">
+      <textarea
+        id="emotionTextInput"
+        class="emotion-textarea"
+        placeholder="e.g. I'm feeling really excited and motivated today!"
+        rows="3"
+        maxlength="300"
+      ></textarea>
+      <div class="char-count"><span id="charCount">0</span>/300</div>
+      <button class="analyze-btn" id="analyzeBtn" onclick="analyzeText()">
+        <span class="btn-icon">✨</span>
+        Analyze My Mood
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ RESULTS DASHBOARD ═══════════════════════ -->
+<section class="results-section hidden" id="sectionResults">
+  <div class="results-container">
+
+    <!-- ── Emotion Status Bar ── -->
+    <div class="emotion-status-bar" id="emotionStatusBar">
+      <div class="status-left">
+        <div class="detected-emoji" id="detectedEmoji">😊</div>
+        <div class="status-info">
+          <div class="status-headline" id="statusHeadline">You're on fire!</div>
+          <div class="status-tagline" id="statusTagline">Your positive energy unlocks advanced knowledge.</div>
+        </div>
+      </div>
+      <div class="status-right">
+        <div class="score-ring" id="scoreRing">
+          <svg class="ring-svg" viewBox="0 0 80 80">
+            <circle class="ring-bg" cx="40" cy="40" r="34" />
+            <circle class="ring-fill" id="ringFill" cx="40" cy="40" r="34"
+              stroke-dasharray="213.6" stroke-dashoffset="213.6" />
+          </svg>
+          <div class="score-label">
+            <span class="score-value" id="scoreValue">0</span>
+            <span class="score-unit">pts</span>
+          </div>
+        </div>
+        <div class="score-title">Learning Score</div>
+      </div>
+    </div>
+
+    <!-- ── Lesson Cards ── -->
+    <div class="lessons-header">
+      <h2 class="lessons-title">Recommended Lessons</h2>
+      <span class="lessons-count" id="lessonsCount">3 lessons</span>
+    </div>
+    <div class="lessons-grid" id="lessonsGrid">
+      <!-- injected by JS -->
+    </div>
+
+    <!-- ── Action Buttons ── -->
+    <div class="results-actions">
+      <button class="action-btn secondary-btn" id="resetBtn" onclick="resetToHome()">
+        <span>🔄</span> Check Again
+      </button>
+      <button class="action-btn primary-btn" id="historyBtn" onclick="showSection('history')">
+        <span>📜</span> View History
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ LESSON MODAL ═══════════════════════ -->
+<div class="modal-overlay hidden" id="lessonModal" onclick="closeModal(event)">
+  <div class="modal-card" id="modalCard">
+    <button class="modal-close" id="modalClose" onclick="closeLessonModal()">✕</button>
+    <div class="modal-header" id="modalHeader">
+      <div class="modal-icon" id="modalIcon">🧠</div>
+      <div>
+        <div class="modal-badge" id="modalBadge">Advanced</div>
+        <h2 class="modal-title" id="modalTitle">Lesson Title</h2>
+        <p class="modal-desc" id="modalDesc">Description</p>
+      </div>
+    </div>
+    <div class="modal-tags" id="modalTags"></div>
+    <div class="modal-steps-title">📋 What You'll Learn</div>
+    <ul class="modal-steps" id="modalSteps"></ul>
+    <div class="modal-footer">
+      <div class="modal-duration" id="modalDuration">⏱ 45 min</div>
+      <button class="modal-start-btn" id="modalStartBtn" onclick="startLesson()">
+        🚀 Start Lesson
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ HISTORY SECTION ═══════════════════════ -->
+<section class="page-section hidden" id="sectionHistory">
+  <div class="page-container">
+    <div class="page-header">
+      <h1 class="page-title">📜 Emotion History</h1>
+      <p class="page-subtitle">Your emotional learning journey over time.</p>
+    </div>
+    <div class="history-grid" id="historyGrid">
+      <div class="empty-state">
+        <div class="empty-icon">🕊️</div>
+        <p>No sessions yet. Start by checking your mood!</p>
+        <button class="action-btn primary-btn" onclick="showSection('dashboard')">Get Started</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ STATS SECTION ═══════════════════════ -->
+<section class="page-section hidden" id="sectionStats">
+  <div class="page-container">
+    <div class="page-header">
+      <h1 class="page-title">📊 Platform Stats</h1>
+      <p class="page-subtitle">Live learning insights from all users.</p>
+    </div>
+    <div class="stats-cards" id="statsCards">
+      <div class="stat-card">
+        <div class="stat-icon">👥</div>
+        <div class="stat-value" id="statUsers">—</div>
+        <div class="stat-label">Total Users</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🎯</div>
+        <div class="stat-value" id="statSessions">—</div>
+        <div class="stat-label">Total Sessions</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⭐</div>
+        <div class="stat-value" id="statAvgScore">—</div>
+        <div class="stat-label">Avg Score</div>
+      </div>
+    </div>
+    <div class="distribution-card">
+      <h3 class="dist-title">Emotion Distribution</h3>
+      <div class="dist-bars" id="distBars">
+        <!-- injected by JS -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ TOAST ═══════════════════════ -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- ═══════════════════════ LOADER ═══════════════════════ -->
+<div class="page-loader hidden" id="pageLoader">
+  <div class="loader-spinner"></div>
+  <p class="loader-text">Analyzing your emotion...</p>
+</div>
+
+<script src="/js/app.js"></script>
+</body>
+</html>

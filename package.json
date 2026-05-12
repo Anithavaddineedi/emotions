@@ -1,0 +1,20 @@
+{
+  "name": "smart-emotion-learning",
+  "version": "1.0.0",
+  "description": "Smart Emotion-Based Learning Web Platform",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.5",
+    "cors": "^2.8.6",
+    "express": "^4.22.2",
+    "open": "^11.0.0",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
