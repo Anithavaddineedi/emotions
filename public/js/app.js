@@ -10,11 +10,10 @@ const state = {
   lastResult: null,
   currentLesson: null,
 };
+const API = 'https://emotions-production-8bd7.up.railway.app/api';
 
-const API = 'http://localhost:3000/api';
-
-const EMOJI_MAP = { happy:'😊', sad:'😢', neutral:'😐', angry:'😠' };
-const COLOR_MAP  = { happy:'#f9c74f', sad:'#4fc3f7', neutral:'#a8d8a8', angry:'#ff6b6b' };
+const EMOJI_MAP = { happy: '😊', sad: '😢', neutral: '😐', angry: '😠' };
+const COLOR_MAP = { happy: '#f9c74f', sad: '#4fc3f7', neutral: '#a8d8a8', angry: '#ff6b6b' };
 
 // ── Init ────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
@@ -41,10 +40,10 @@ function spawnParticles() {
     const size = Math.random() * 6 + 3;
     p.style.cssText = `
       width:${size}px;height:${size}px;
-      left:${Math.random()*100}%;
-      background:hsl(${Math.random()*60+240},70%,65%);
-      animation-duration:${Math.random()*12+8}s;
-      animation-delay:${Math.random()*8}s;
+      left:${Math.random() * 100}%;
+      background:hsl(${Math.random() * 60 + 240},70%,65%);
+      animation-duration:${Math.random() * 12 + 8}s;
+      animation-delay:${Math.random() * 8}s;
     `;
     container.appendChild(p);
   }
@@ -58,7 +57,7 @@ function initCharCounter() {
 
 // ── Section Navigation ───────────────────────────
 function showSection(name) {
-  ['dashboard','results','history','stats'].forEach(s => {
+  ['dashboard', 'results', 'history', 'stats'].forEach(s => {
     const el = document.getElementById('section' + s.charAt(0).toUpperCase() + s.slice(1));
     if (el) el.classList.add('hidden');
   });
@@ -66,7 +65,7 @@ function showSection(name) {
   if (target) target.classList.remove('hidden');
 
   document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-  const navMap = { dashboard:'navDashboard', history:'navHistory', stats:'navStats' };
+  const navMap = { dashboard: 'navDashboard', history: 'navHistory', stats: 'navStats' };
   if (navMap[name]) document.getElementById(navMap[name])?.classList.add('active');
 
   if (name === 'history') loadHistory();
@@ -157,7 +156,7 @@ function buildLessonCard(lesson, theme) {
   div.className = 'lesson-card';
   div.onclick = () => openLesson(lesson);
   const color = COLOR_MAP[theme] || '#6c63ff';
-  div.querySelector?.('::before') ;
+  div.querySelector?.('::before');
   div.style.setProperty('--card-accent', color);
   div.innerHTML = `
     <style>.lesson-card::before{background:${color}!important}</style>
@@ -166,7 +165,7 @@ function buildLessonCard(lesson, theme) {
       <span class="card-difficulty">${lesson.difficulty}</span>
     </div>
     <div class="card-title">${lesson.title}</div>
-    <div class="card-tags">${lesson.tags.map(t=>`<span class="card-tag">${t}</span>`).join('')}</div>
+    <div class="card-tags">${lesson.tags.map(t => `<span class="card-tag">${t}</span>`).join('')}</div>
     <div class="card-desc">${lesson.description}</div>
     <div class="card-footer">
       <span class="card-duration">⏱ ${lesson.duration}</span>
@@ -184,8 +183,8 @@ function openLesson(lesson) {
   document.getElementById('modalTitle').textContent = lesson.title;
   document.getElementById('modalDesc').textContent = lesson.description;
   document.getElementById('modalDuration').textContent = `⏱ ${lesson.duration}`;
-  document.getElementById('modalTags').innerHTML = lesson.tags.map(t=>`<span class="modal-tag">${t}</span>`).join('');
-  document.getElementById('modalSteps').innerHTML = lesson.steps.map(s=>`<li>${s}</li>`).join('');
+  document.getElementById('modalTags').innerHTML = lesson.tags.map(t => `<span class="modal-tag">${t}</span>`).join('');
+  document.getElementById('modalSteps').innerHTML = lesson.steps.map(s => `<li>${s}</li>`).join('');
   document.getElementById('lessonModal').classList.remove('hidden');
   document.body.style.overflow = 'hidden';
 }
@@ -228,11 +227,11 @@ async function loadHistory() {
       const item = document.createElement('div');
       item.className = 'history-item';
       const date = new Date(h.timestamp);
-      const dateStr = date.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
-      const timeStr = date.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+      const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      const timeStr = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
       item.innerHTML = `
         <div class="history-left">
-          <div class="history-emoji">${EMOJI_MAP[h.emotion]||'🤔'}</div>
+          <div class="history-emoji">${EMOJI_MAP[h.emotion] || '🤔'}</div>
           <div>
             <div class="history-emotion">${h.emotion}</div>
             <div class="history-time">${dateStr} at ${timeStr}</div>
@@ -263,20 +262,20 @@ async function loadStats() {
     document.getElementById('statAvgScore').textContent = data.averagePlatformScore;
 
     const dist = data.emotionDistribution;
-    const total = Object.values(dist).reduce((a,b)=>a+b,0)||1;
+    const total = Object.values(dist).reduce((a, b) => a + b, 0) || 1;
     const bars = [
-      { key:'happy', label:'😊 Happy', color:'#f9c74f' },
-      { key:'sad',   label:'😢 Sad',   color:'#4fc3f7' },
-      { key:'neutral',label:'😐 Neutral',color:'#a8d8a8' },
-      { key:'angry', label:'😠 Angry', color:'#ff6b6b' },
+      { key: 'happy', label: '😊 Happy', color: '#f9c74f' },
+      { key: 'sad', label: '😢 Sad', color: '#4fc3f7' },
+      { key: 'neutral', label: '😐 Neutral', color: '#a8d8a8' },
+      { key: 'angry', label: '😠 Angry', color: '#ff6b6b' },
     ];
-    document.getElementById('distBars').innerHTML = bars.map(b=>`
+    document.getElementById('distBars').innerHTML = bars.map(b => `
       <div class="dist-row">
         <div class="dist-label">${b.label}</div>
         <div class="dist-bar-track">
-          <div class="dist-bar-fill" style="width:${Math.round((dist[b.key]||0)/total*100)}%;background:${b.color}"></div>
+          <div class="dist-bar-fill" style="width:${Math.round((dist[b.key] || 0) / total * 100)}%;background:${b.color}"></div>
         </div>
-        <div class="dist-count">${dist[b.key]||0}</div>
+        <div class="dist-count">${dist[b.key] || 0}</div>
       </div>
     `).join('');
   } catch { /* silently fail on stats */ }
@@ -284,22 +283,22 @@ async function loadStats() {
 
 // ── Reset / Back ──────────────────────────────────
 function resetToHome() {
-  document.querySelectorAll('.emotion-btn').forEach(b=>b.classList.remove('selected'));
-  document.getElementById('emotionTextInput').value='';
-  document.getElementById('charCount').textContent='0';
+  document.querySelectorAll('.emotion-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('emotionTextInput').value = '';
+  document.getElementById('charCount').textContent = '0';
   state.currentEmotion = null;
   showSection('dashboard');
 }
 
 // ── Toast ─────────────────────────────────────────
-function showToast(msg, type='info') {
+function showToast(msg, type = 'info') {
   const container = document.getElementById('toastContainer');
-  const icons = { success:'✅', error:'❌', info:'ℹ️' };
+  const icons = { success: '✅', error: '❌', info: 'ℹ️' };
   const toast = document.createElement('div');
   toast.className = `toast ${type}`;
-  toast.innerHTML = `<span>${icons[type]||'ℹ️'}</span><span>${msg}</span>`;
+  toast.innerHTML = `<span>${icons[type] || 'ℹ️'}</span><span>${msg}</span>`;
   container.appendChild(toast);
-  setTimeout(()=>{ toast.style.opacity='0'; toast.style.transition='opacity .4s'; setTimeout(()=>toast.remove(),400); }, 3500);
+  setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'opacity .4s'; setTimeout(() => toast.remove(), 400); }, 3500);
 }
 
 // ── Loader ────────────────────────────────────────

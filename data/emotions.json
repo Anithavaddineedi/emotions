@@ -1,0 +1,54 @@
+{
+  "sessions": [
+    {
+      "userId": "user_z7bp8g7",
+      "createdAt": "2026-05-12T13:55:33.372Z",
+      "lastSeen": "2026-05-12T13:55:33.372Z",
+      "totalSessions": 1,
+      "averageScore": 55,
+      "history": [
+        {
+          "sessionId": "6f985b53-0448-45cd-84c6-764f29b6053b",
+          "emotion": "sad",
+          "inputType": "button",
+          "rawInput": null,
+          "score": 55,
+          "timestamp": "2026-05-12T13:55:33.372Z"
+        }
+      ]
+    },
+    {
+      "userId": "user_ivoyg9m",
+      "createdAt": "2026-05-13T08:39:35.082Z",
+      "lastSeen": "2026-05-13T08:47:43.771Z",
+      "totalSessions": 3,
+      "averageScore": 75,
+      "history": [
+        {
+          "sessionId": "8a133e24-36bb-4c60-ae51-8276820d3ed3",
+          "emotion": "sad",
+          "inputType": "button",
+          "rawInput": null,
+          "score": 55,
+          "timestamp": "2026-05-13T08:39:35.082Z"
+        },
+        {
+          "sessionId": "52f8bd4c-6ec5-4b16-8319-f312d3cde099",
+          "emotion": "happy",
+          "inputType": "button",
+          "rawInput": null,
+          "score": 95,
+          "timestamp": "2026-05-13T08:39:53.032Z"
+        },
+        {
+          "sessionId": "4af5a7b9-afb0-4558-b4da-60e1050ad511",
+          "emotion": "neutral",
+          "inputType": "button",
+          "rawInput": null,
+          "score": 75,
+          "timestamp": "2026-05-13T08:47:43.771Z"
+        }
+      ]
+    }
+  ]
+}
