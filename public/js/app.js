@@ -10,7 +10,7 @@ const state = {
   lastResult: null,
   currentLesson: null,
 };
-const API = 'https://emotions-production-8bd7.up.railway.app/api';
+const API = 'http://localhost:3000/api';
 
 const EMOJI_MAP = { happy: '😊', sad: '😢', neutral: '😐', angry: '😠' };
 const COLOR_MAP = { happy: '#f9c74f', sad: '#4fc3f7', neutral: '#a8d8a8', angry: '#ff6b6b' };
