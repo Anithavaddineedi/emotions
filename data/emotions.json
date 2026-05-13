@@ -3,9 +3,9 @@
     {
       "userId": "user_z7bp8g7",
       "createdAt": "2026-05-12T13:55:33.372Z",
-      "lastSeen": "2026-05-12T13:55:33.372Z",
-      "totalSessions": 1,
-      "averageScore": 55,
+      "lastSeen": "2026-05-13T10:32:02.557Z",
+      "totalSessions": 2,
+      "averageScore": 75,
       "history": [
         {
           "sessionId": "6f985b53-0448-45cd-84c6-764f29b6053b",
@@ -14,6 +14,14 @@
           "rawInput": null,
           "score": 55,
           "timestamp": "2026-05-12T13:55:33.372Z"
+        },
+        {
+          "sessionId": "b6482b30-6302-4b9d-8979-772f99f19172",
+          "emotion": "happy",
+          "inputType": "button",
+          "rawInput": null,
+          "score": 95,
+          "timestamp": "2026-05-13T10:32:02.557Z"
         }
       ]
     },
